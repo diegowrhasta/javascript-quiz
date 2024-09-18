@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "question": "What's the result of the next expression?",
+    "code": "3 + 2 + '7'",
+    "answers": [
+      "12",
+      "327",
+      "57",
+      "NaN"
+    ],
+    "correctAnswer": 2
+  },
+  {
+    "id": 2,
+    "question": "What does the following code return?",
+    "code": "typeof null",
+    "answers": [
+      "'object'",
+      "'null'",
+      "'undefined'",
+      "'number'"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 3,
+    "question": "What will this code output?",
+    "code": "console.log([] + []);",
+    "answers": [
+      "'' (empty string)",
+      "'[]'",
+      "'undefined'",
+      "'object'"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 4,
+    "question": "What will this code output?",
+    "code": "console.log(0 == '0');",
+    "answers": [
+      "true",
+      "false",
+      "TypeError",
+      "NaN"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 5,
+    "question": "What will this code output?",
+    "code": "console.log(0 === '0');",
+    "answers": [
+      "true",
+      "false",
+      "TypeError",
+      "NaN"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": 6,
+    "question": "Which method can be used to merge arrays?",
+    "code": "['a', 'b'].____(['c', 'd'])",
+    "answers": [
+      "concat",
+      "push",
+      "join",
+      "slice"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 7,
+    "question": "What's the value of x after this code runs?",
+    "code": "let x = [1, 2, 3].map(num => num * 2);",
+    "answers": [
+      "[1, 2, 3]",
+      "[2, 4, 6]",
+      "undefined",
+      "null"
+    ],
+    "correctAnswer": 1
+  },
+  {
+    "id": 8,
+    "question": "What does the following expression evaluate to?",
+    "code": "Boolean([])",
+    "answers": [
+      "true",
+      "false",
+      "TypeError",
+      "null"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 9,
+    "question": "What is the output of the following code?",
+    "code": "console.log('5' - 2);",
+    "answers": [
+      "3",
+      "'52'",
+      "7",
+      "'NaN'"
+    ],
+    "correctAnswer": 0
+  },
+  {
+    "id": 10,
+    "question": "What's the result of this expression?",
+    "code": "'JavaScript'.slice(0, 4)",
+    "answers": [
+      "'Java'",
+      "'Script'",
+      "'avaS'",
+      "'JavS'"
+    ],
+    "correctAnswer": 0
+  }
+]
