@@ -24,7 +24,7 @@ function App () {
           </Typography>
         </Stack>
 
-        {questions.length && <Start />}
+        {!questions.length && <Start />}
         {questions.length > 0 && <h1>Game</h1>}
       </Container>
     </main>
