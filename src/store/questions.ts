@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { type Question } from './types'
+import { type Question } from '../types'
 
 interface State {
   questions: Question[]
@@ -17,7 +17,7 @@ const useQuestionsStore = create<State>(set => {
 
       const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
 
-      set(state => ({ questions }))
+      set(_ => ({ questions }))
     },
   }
 })
