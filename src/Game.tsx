@@ -1,4 +1,11 @@
-import { Card, Typography } from '@mui/material'
+import {
+  Card,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Typography,
+} from '@mui/material'
 
 import SyntaxHighlighter from 'react-syntax-highlighter'
 import { gradientDark } from 'react-syntax-highlighter/dist/esm/styles/hljs'
@@ -14,6 +21,19 @@ const Question = ({ info }: { info: QuestionType }) => {
       <SyntaxHighlighter language='javascript' style={gradientDark}>
         {info.code}
       </SyntaxHighlighter>
+
+      <List sx={{ bgcolor: '#333' }} disablePadding>
+        {info.answers.map((answer, index) => (
+          <ListItem key={index} disablePadding divider>
+            <ListItemButton>
+              <ListItemText
+                sx={{ textAlign: 'center' }}
+                primary={answer}
+              ></ListItemText>
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
     </Card>
   )
 }
