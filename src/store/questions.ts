@@ -1,4 +1,6 @@
 import { create } from 'zustand'
+import confetti from 'canvas-confetti'
+
 import { type Question } from '../types'
 
 interface State {
@@ -28,6 +30,10 @@ const useQuestionsStore = create<State>((set, get) => {
       const questionIndex = newQuestions.findIndex(x => x.id === questionId)
       const questionInfo = newQuestions[questionIndex]
       const isCorrectUserAnswer = questionInfo.correctAnswer === answerIndex
+
+      if (isCorrectUserAnswer) {
+        confetti()
+      }
 
       newQuestions[questionIndex] = {
         ...questionInfo,
