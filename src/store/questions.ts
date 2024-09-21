@@ -8,6 +8,8 @@ interface State {
   currentQuestion: number
   fetchQuestions: (limit: number) => Promise<void>
   selectAnswer: (questionId: number, answerIndex: number) => void
+  goNextQuestion: () => void
+  goPreviousQuestion: () => void
 }
 
 const useQuestionsStore = create<State>((set, get) => {
@@ -42,6 +44,22 @@ const useQuestionsStore = create<State>((set, get) => {
       }
 
       set(_ => ({ questions: newQuestions }))
+    },
+    goNextQuestion: () => {
+      const { currentQuestion, questions } = get()
+      const nextQuestion = currentQuestion + 1
+
+      if (nextQuestion < questions.length) {
+        set({ currentQuestion: nextQuestion })
+      }
+    },
+    goPreviousQuestion: () => {
+      const { currentQuestion } = get()
+      const nextQuestion = currentQuestion - 1
+
+      if (nextQuestion >= 0) {
+        set({ currentQuestion: nextQuestion })
+      }
     },
   }
 })
