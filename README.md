@@ -15,3 +15,5 @@ Coded with VSCodium, PNPM, NVM, Windows.
 * Zustand
 * Fontsource
 * Standard-js
+* Canvas-confetti
+* React-syntax-highlighter
