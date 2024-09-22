@@ -1,5 +1,5 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { persist, devtools } from 'zustand/middleware'
 import confetti from 'canvas-confetti'
 
 import { getAllQuestions } from '../services/questions'
@@ -16,63 +16,70 @@ interface State {
 }
 
 const useQuestionsStore = create<State>()(
-  persist(
-    (set, get) => {
-      return {
-        questions: [],
-        currentQuestion: 0,
-        fetchQuestions: async (limit: number) => {
-          const json = await getAllQuestions()
+  devtools(
+    persist(
+      (set, get) => {
+        return {
+          questions: [],
+          currentQuestion: 0,
+          fetchQuestions: async (limit: number) => {
+            const json = await getAllQuestions()
 
-          const questions = json.sort(() => Math.random() - 0.5).slice(0, limit)
+            const questions = json
+              .sort(() => Math.random() - 0.5)
+              .slice(0, limit)
 
-          set(_ => ({ questions }))
-        },
-        selectAnswer: (questionId: number, answerIndex: number) => {
-          const { questions } = get()
-          // Structure Clone - Deep Clone
-          const newQuestions = structuredClone(questions)
+            set({ questions }, false, 'FETCH_QUESTIONS')
+          },
+          selectAnswer: (questionId: number, answerIndex: number) => {
+            const { questions } = get()
+            // Structure Clone - Deep Clone
+            const newQuestions = structuredClone(questions)
 
-          const questionIndex = newQuestions.findIndex(x => x.id === questionId)
-          const questionInfo = newQuestions[questionIndex]
-          const isCorrectUserAnswer = questionInfo.correctAnswer === answerIndex
+            const questionIndex = newQuestions.findIndex(
+              x => x.id === questionId
+            )
+            const questionInfo = newQuestions[questionIndex]
+            const isCorrectUserAnswer =
+              questionInfo.correctAnswer === answerIndex
 
-          if (isCorrectUserAnswer) {
-            confetti()
-          }
+            if (isCorrectUserAnswer) {
+              confetti()
+            }
 
-          newQuestions[questionIndex] = {
-            ...questionInfo,
-            isCorrectUserAnswer,
-            userSelectedAnswer: answerIndex,
-          }
+            newQuestions[questionIndex] = {
+              ...questionInfo,
+              isCorrectUserAnswer,
+              userSelectedAnswer: answerIndex,
+            }
 
-          set(_ => ({ questions: newQuestions }))
-        },
-        goNextQuestion: () => {
-          const { currentQuestion, questions } = get()
-          const nextQuestion = currentQuestion + 1
+            set({ questions: newQuestions }, false, 'SELECT ANSWER')
+          },
+          goNextQuestion: () => {
+            const { currentQuestion, questions } = get()
+            const nextQuestion = currentQuestion + 1
 
-          if (nextQuestion < questions.length) {
-            set({ currentQuestion: nextQuestion })
-          }
-        },
-        goPreviousQuestion: () => {
-          const { currentQuestion } = get()
-          const nextQuestion = currentQuestion - 1
+            if (nextQuestion < questions.length) {
+              set({ currentQuestion: nextQuestion }, false, 'GO NEXT QUESTION')
+            }
+          },
+          goPreviousQuestion: () => {
+            const { currentQuestion } = get()
+            const nextQuestion = currentQuestion - 1
 
-          if (nextQuestion >= 0) {
-            set({ currentQuestion: nextQuestion })
-          }
-        },
-        reset: () => {
-          set({ currentQuestion: 0, questions: [] })
-        },
+            if (nextQuestion >= 0) {
+              set({ currentQuestion: nextQuestion }, false, 'GO PREVIOUS QUESTION')
+            }
+          },
+          reset: () => {
+            set({ currentQuestion: 0, questions: [] }, false, 'RESET')
+          },
+        }
+      },
+      {
+        name: 'questions',
       }
-    },
-    {
-      name: 'questions',
-    }
+    )
   )
 )
 
